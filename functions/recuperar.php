@@ -22,3 +22,11 @@ function recuperar_usuarios() {
     return $usuarios;
 }
 
+// Ejemplo de uso:
+$usuarios = recuperar_usuarios();
+
+// Ahora puedes hacer lo que quieras con los datos de los usuarios, por ejemplo, imprimirlos:
+foreach ($usuarios as $usuario) {
+    echo "ID: " . $usuario['id'] . ", Nombre: " . $usuario['nombre'] . ", Email: " . $usuario['email'] . "<br>";
+}
+?>
