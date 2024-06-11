@@ -1,5 +1,11 @@
 
-
+<?php
+session_start();
+$url_base = "http://localhost/LP2_DESEMPEÑO_2/";
+if (!isset($_SESSION['usuario'])) {
+    header("Location: " . $url_base . "login.php");
+}
+?>
 
 
 <!DOCTYPE html>
