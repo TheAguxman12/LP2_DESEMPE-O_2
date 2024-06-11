@@ -5,14 +5,13 @@ $pass = 'gZBBsxlYtClRwZbwORrnCgVVkmUSpqSu';
 $db = 'railway';
 
 
-try{
-    $connection = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
-
-    if($connection = true){
-        echo 'Goood Morning Night City';
-    }
+try {
+    $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
+    $connection = new PDO($dsn, $user, $pass);
     
-}catch(Exception $e){
-    echo $e->getMessage()."F";
+    // Esto es solo para pruebas, quítalo en producción
+    echo 'Good Morning Night City';
+} catch (PDOException $e) {
+    echo 'Error de conexión: ' . $e->getMessage();
 }
 ?>
