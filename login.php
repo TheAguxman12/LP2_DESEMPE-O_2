@@ -21,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($resultado && $ypass === $resultado['clave']) {
         $_SESSION['yuser'] = $resultado['usuario'];
+        $_SESSION['nivel'] = $resultado['nivel'];
+        $_SESSION['nombre'] = $resultado['nombre'];
+        $_SESSION['apellido'] = $resultado['apellido'];
         $_SESSION['login'] = true;
         header("Location: index.php");
         exit();

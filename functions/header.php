@@ -1,10 +1,26 @@
 
 <?php
 session_start();
-$url_base = "http://localhost/LP2_DESEMPEÑO_2/";
-if (!isset($_SESSION['usuario'])) {
-    header("Location: " . $url_base . "login.php");
+$url_base = "http://localhost/LP2_PARCIAL_2/";
+if (!isset($_SESSION['yuser'])) {
+    header("Location: " . $url_base . "cerrar.php");
 }
+
+
+$user = $_SESSION['yuser'];
+$nombre = $_SESSION['nombre'];
+$apellido = $_SESSION['apellido'];
+
+if($_SESSION['nivel'] == 1){
+  $nivel = 'Chofer';
+}
+if($_SESSION['nivel'] == 2){
+  $nivel = 'Operador';
+}
+if($_SESSION['nivel'] == 3){
+  $nivel = 'Administrador';
+}
+
 ?>
 
 
@@ -68,13 +84,13 @@ if (!isset($_SESSION['usuario'])) {
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/bellota.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Sue Palacios</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user ?> </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Sue Palacios</h6>
-              <span>Administrador</span>
+              <h6><?=$nombre.$apellido ?> </h6>
+              <span><?=$nivel ?> </span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -104,7 +120,7 @@ if (!isset($_SESSION['usuario'])) {
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="http://localhost/LP2_DESEMPE%C3%91O_2/cerrar.php">
+              <a class="dropdown-item d-flex align-items-center" href="http://localhost/LP2_PARCIAL_2/cerrar.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Cerrar sesion</span>
               </a>
