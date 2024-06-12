@@ -1,12 +1,13 @@
 
 <?php
 session_start();
+include('./bd.php');
 $url_base = "http://localhost/LP2_PARCIAL_2/";
 if (!isset($_SESSION['yuser'])) {
     header("Location: " . $url_base . "cerrar.php");
 }
 
-
+$user_id = $_SESSION['user_id'];
 $user = $_SESSION['yuser'];
 $nombre = $_SESSION['nombre'];
 $apellido = $_SESSION['apellido'];
@@ -84,7 +85,7 @@ if($_SESSION['nivel'] == 3){
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/bellota.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user ?> </span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user.$user_id ?> </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -133,6 +134,9 @@ if($_SESSION['nivel'] == 3){
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
+
+
+
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
@@ -145,42 +149,54 @@ if($_SESSION['nivel'] == 3){
         </a>
       </li><!-- End Dashboard Nav -->
 
+
+      <?php if($_SESSION['nivel'] >= 2):?>
       <li class="nav-item">
         <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-truck"></i><span>Transporte</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-          <li>
+
+        
+        <li>
             <a href="camion_carga.php" class="active">
-              <i class="bi bi-file-earmark-plus"></i><span>Cargar nuevo transporte</span>
+            <i class="bi bi-file-earmark-plus"></i><span>Cargar nuevo transporte</span>
             </a>
           </li>
+          <?php if($_SESSION['nivel'] >= 3): ?>
           <li>
             <a href="chofer_carga.php" class="active">
               <i class="bi bi-file-earmark-plus"></i><span>Cargar nuevo chofer</span>
             </a>
           </li>
-
-
-
+          <?php endif?>
+          
         </ul>
       </li>
+      <?php endif?>
+
+
 
       <li class="nav-item">
         <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-globe2"></i><span>Viajes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+          <?php if($_SESSION['nivel'] >= 2):?>
           <li>
             <a href="viaje_carga.php" class="active">
               <i class="bi bi-file-earmark-plus"></i><span>Cargar nuevo</span>
             </a>
           </li>
+          <?php endif?>
+
+          <?php if($_SESSION['nivel'] >= 3): ?>
           <li>
             <a href="viajes_listado.php" class="active">
               <i class="bi bi-layout-text-window-reverse"></i><span>Listado de viajes</span>
             </a>
           </li>
+          <?php endif?>
         </ul>
       </li>
 

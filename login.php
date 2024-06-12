@@ -3,8 +3,7 @@ require('bd.php');
 session_start();
 
 $alert_message = "";
-echo 'CUCHAME JULIAN AHI TA REDY LO QUE ES CAMION_CARGA IGUALMENTE HAY QUE VER PORQUE MEPA QUE HAY QUE METERLO DENTRO DE UNA FUNCION A PARTE';
-echo 'HAY QUE VER COMO SE HACER Y ADEMAS HAY QUE HACER LO QUE SERIA EL MOSTRAR LAS COSSAS, Y TIENE QUE TENES LOS BOTONES DE BORRAR Y EDITAR COMO EN EL VIDEO XD, ME FUI A NONIA BYE';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $yuser = isset($_POST['yourUsername']) ? $_POST['yourUsername'] : '';
     $ypass = isset($_POST['yourPassword']) ? $_POST['yourPassword'] : '';
@@ -21,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if ($resultado && $ypass === $resultado['clave']) {
+        $_SESSION['user_id'] = $resultado['id_usuario'];
         $_SESSION['yuser'] = $resultado['usuario'];
         $_SESSION['nivel'] = $resultado['nivel'];
         $_SESSION['nombre'] = $resultado['nombre'];

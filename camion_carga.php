@@ -1,6 +1,6 @@
 <?php
 include("./functions/header.php");
-include('./bd.php');
+
 
 $alert_message = "";
 
@@ -14,7 +14,7 @@ $marcas = $sm->fetchAll(PDO::FETCH_ASSOC);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // VERIFICP
     if (!empty($_POST['marca']) && !empty($_POST['modelo']) && !empty($_POST['anio']) && !empty($_POST['patente'])) {
-        
+
         $marca_tr = $_POST['marca'];
         $modelo_tr = $_POST['modelo'];
         $año_tr = $_POST['anio'];
@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           Ocurrió un error al guardar los datos.
                       </div>';
         }
-
     } else {
         $alert_message = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                           <i class="bi bi-exclamation-triangle me-1"></i>
@@ -71,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card-body">
                     <h5 class="card-title">Ingresa los datos</h5>
 
-                    <?=$alert_message?>
+                    <?= $alert_message ?>
 
                     <!-- FORMULARIO -->
                     <form method="POST" class="row g-3">
@@ -79,8 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="selector" class="form-label">Marca (*)</label>
                             <select class="form-select" aria-label="Selector" id="selector" name="marca">
                                 <option selected="">Selecciona una opción</option>
-                                <?php foreach($marcas as $marca): ?>
-                                <option value="<?=$marca['id_marca']; ?>"><?=$marca['tipo_marca']; ?></option>
+                                <?php foreach ($marcas as $marca) : ?>
+                                    <option value="<?= $marca['id_marca']; ?>"><?= $marca['tipo_marca']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -93,14 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="año" class="form-label">Año (*)</label>
                             <input type="number" class="form-control" id="anio" name="anio" required>
                         </div>
-                        
                         <div class="col-12">
                             <label for="patente" class="form-label">Patente (*)</label>
                             <input type="text" class="form-control" id="patente" name="patente" required>
                         </div>
+                      
 
 
-                                    <!--
+                        <!--
                     <div class="col-12">
                         <label for="selector" class="form-label">Tipo carga (*)</label>
                         <select class="form-select" aria-label="Selector" id="selector">
@@ -132,9 +131,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </section>
 
+
 <!-- Vendor JS Files -->
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
-<script src="assets/vendor/tinymce/tinymce.min.js"></script> 
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 
