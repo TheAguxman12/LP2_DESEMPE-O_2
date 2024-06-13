@@ -9,7 +9,7 @@ $sm = $connection->prepare($sql);
 $sm->execute();
 $lvls = $sm->fetchAll(PDO::FETCH_ASSOC);
 
-// Envío del formulario
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verifico 
@@ -20,9 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre = $_POST['nombre'];
         $dni = $_POST['dni'];
         $usuario = $_POST['user'];
-        $clave = password_hash($_POST['pass'], PASSWORD_DEFAULT); // Usar hash para la clave
+        $clave = password_hash($_POST['pass'], PASSWORD_DEFAULT); // HASHEADO
         $nivel = $_POST['nivel'];
         $anio = $_POST['anio'];
+        //SELECCIONO LA IMAGEN CORRESPONDIENTE
         if($_POST['nivel'] == 1){
             $imagen = "http://localhost/LP2_PARCIAL_2/assets/img/bellota.jpg";
         }elseif ($_POST['nivel'] == 2){
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }elseif ($_POST['nivel'] == 3){
             $imagen = "http://localhost/LP2_PARCIAL_2/assets/img/bombon.jpg";
         }
-        // Establecer un valor por defecto para la imagen
+    
 
         $sql_insert = "INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen) 
                        VALUES (:usuario, :nombre, :apellido, :dni, :clave, 1, :nivel, :anio, :imagen)";

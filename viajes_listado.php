@@ -116,5 +116,4 @@ $viajes = listado($connection,$_SESSION['user_id']);
   <script src="assets/js/main.js"></script>
 
 </body>
-
 </html>

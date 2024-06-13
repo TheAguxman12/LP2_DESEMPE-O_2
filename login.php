@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //echo "Usuario: $yuser, Clave: $ypass";
 
 
-
+  if($resultado['actividad'] == 1){
     if ($resultado && password_verify($ypass, $resultado['clave'])) {
         $_SESSION['user_id'] = $resultado['id_usuario'];
         $_SESSION['yuser'] = $resultado['usuario'];
@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $alert_message = '<div class="alert alert-danger" role="alert">El usuario y/o contraseña son incorrectos</div>';
     }
+  }else{
+    $alert_message = '<div class="alert alert-danger" role="alert">El usuario no se encuentra activo</div>';
+  }
 }
 ?>
 

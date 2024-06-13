@@ -4,10 +4,9 @@ function listado($connection, $user_id)
 {
     $list_viajes = array();
 
-    // Determinar si se debe aplicar el filtro por user_id
-    $filtro_admin = $_SESSION['nivel'] < 2;  // Cambiar la condición según sea necesario
+    // FILTRO POR NIVEL
+    $filtro_admin = $_SESSION['nivel'] < 2;  
 
-    // Consulta SQL para obtener los viajes
     $sql = "SELECT 
                 v.id_viaje AS id_viaje,
                 v.fecha_viaje AS fecha_viaje,
@@ -29,10 +28,9 @@ function listado($connection, $user_id)
         $sql .= " WHERE v.chofer = :user_id";
     }
 
-    $sql .= " AND v.fecha_viaje >= CURDATE() - INTERVAL 1 MONTH  -- Ejemplo: solo viajes del último mes
+    $sql .= " AND v.fecha_viaje >= CURDATE() - INTERVAL 1 MONTH 
               ORDER BY v.fecha_viaje DESC";
 
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
 
     if ($filtro_admin) {
@@ -41,10 +39,9 @@ function listado($connection, $user_id)
 
     $stmt->execute();
 
-    // Obtener resultados como un array asociativo
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Procesar los resultados
+
     foreach ($result as $i => $data) {
         $list_viajes[$i]['id_viaje'] = $data['id_viaje'];
         $list_viajes[$i]['fecha_viaje'] = $data['fecha_viaje'];
@@ -60,7 +57,7 @@ function listado($connection, $user_id)
     return $list_viajes;
 }
 function calculo_viaje($data_viaje) {
-    // Inicializar mensaje y estado
+ 
     $mensaje = "";
     $estado = "";
 
@@ -68,7 +65,7 @@ function calculo_viaje($data_viaje) {
     date_default_timezone_set("America/Argentina/Cordoba");
     $Fecha_actual = date("Y-m-d");
     $Maniana = date("Y-m-d", strtotime($Fecha_actual . "+ 1 day")); 
-    $Fecha_viaje = date("Y-m-d", strtotime($data_viaje)); // Asegúrate de que la fecha del viaje esté en el mismo formato
+    $Fecha_viaje = date("Y-m-d", strtotime($data_viaje)); 
 
     // Verificar si la fecha del viaje es mañana
     if ($Fecha_viaje == $Maniana) {

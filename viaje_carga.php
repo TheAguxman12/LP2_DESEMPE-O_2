@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $chofer = $_POST['chofer'];
     $trns = $_POST['transporte'];
     $fecha = $_POST['fecha'];
-    $fecha_creacion = (new DateTime())->format('Y-m-d H:i:s');  // fecha actual
+    $fecha_creacion = (new DateTime())->format('Y-m-d H:i:s');  // FECHA ACTUAL
     $dest = $_POST['destino'];
-    $operador = $_SESSION['user_id']; // Asumiendo que el operador es el usuario logueado
+    $operador = $_SESSION['user_id']; //CARGA AUTOMATICAMENTE EN OPERADOR AL USUARIO QUE REALIZA LA CARGA
     $costo = $_POST['costo'];
     $porcentaje = $_POST['proc'];
  
@@ -181,14 +181,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 </body>
-
-<!-- <script>
-function calculatePercentage() {
-  var costo = document.getElementById('costo').value;
-  var porcentaje = costo * 0.15;
-  document.getElementById('proc_display').value = porcentaje.toFixed(2);
-  document.getElementById('proc').value = porcentaje.toFixed(2);
-}
-</script> -->
-
 </html>

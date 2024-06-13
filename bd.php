@@ -9,8 +9,7 @@ try {
     $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
     $connection = new PDO($dsn, $user, $pass);
     
-    // Esto es solo para pruebas, quítalo en producción
-    echo 'Good Morning Night City';
+    echo 'HOLA PROFE SOY LA BASE DE DATOS';
 } catch (PDOException $e) {
     echo 'Error de conexión: ' . $e->getMessage();
 }

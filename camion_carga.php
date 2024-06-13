@@ -10,7 +10,7 @@ $sm = $connection->prepare($sql);
 $sm->execute();
 $marcas = $sm->fetchAll(PDO::FETCH_ASSOC);
 
-// Envío del formulario
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // VERIFICP
     if (!empty($_POST['marca']) && !empty($_POST['modelo']) && !empty($_POST['anio']) && !empty($_POST['patente'])) {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $patente_tr = $_POST['patente'];
         $dispo_tr = isset($_POST['dispo']) ? 'Disponible' : 'No Disponible'; // disponibilidad
 
-        // Insertar
+      
         $sql_tr = "INSERT INTO TRANSPORTE (marca, modelo, año_transporte, patente, disposicion) 
                    VALUES (:marca, :modelo, :anio, :patente, :dispo)";
 
@@ -96,19 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="patente" class="form-label">Patente (*)</label>
                             <input type="text" class="form-control" id="patente" name="patente" required>
                         </div>
-                      
-
-
-                        <!--
-                    <div class="col-12">
-                        <label for="selector" class="form-label">Tipo carga (*)</label>
-                        <select class="form-select" aria-label="Selector" id="selector">
-                          <option selected="">Selecciona una opcion</option>
-                          <option>Congelados</option>
-                          <option>Carga normal</option>
-                        </select>
-                    </div>
--->
 
                         <div class="col-12">
                             <label class="form-label">Disponibilidad</label>
