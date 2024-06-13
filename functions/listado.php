@@ -28,7 +28,12 @@ function Listar_camiones($connection)
 
 function Listar_choferes($connection)
 {
-    $sql = "SELECT id_usuario, nombre, apellido, dni FROM USUARIOS";
+    $sql = "SELECT u.id_usuario, u.nombre, u.apellido, u.dni 
+    FROM USUARIOS u
+    JOIN NIVEL_USUARIO n
+    ON u.nivel = n.id_nivel
+    WHERE n.tipo_nivel = 'choferes'";
+
     $sm = $connection->prepare($sql);
     $sm->execute();
     $choferes = $sm->fetchAll(PDO::FETCH_ASSOC);
@@ -69,7 +74,27 @@ function Listar_destinos($connection)
 
 function Listado_operadores($connection)
 {
-    
+    $sql = "SELECT u.id_usuario, u.nombre, u.apellido, u.dni 
+    FROM USUARIOS u
+    JOIN NIVEL_USUARIO n
+    ON u.nivel = n.id_nivel
+    WHERE n.tipo_nivel = 'operadores'";
+    $sm = $connection->prepare($sql);
+    $sm->execute();
+    $operador = $sm->fetchAll(PDO::FETCH_ASSOC);
+
+    $list_operador = array();
+
+    foreach ($operador as $i => $data) {
+        $list_operador[$i]['ID_USUARIO'] = $data['id_usuario'];
+        $list_operador[$i]['NOMBRE'] = $data['nombre'];
+        $list_operador[$i]['APELLIDO'] = $data['apellido'];
+        $list_operador[$i]['DNI'] = $data['dni'];
+
+    }
+
+   
+    return $list_operador;
 }
 
 ?>

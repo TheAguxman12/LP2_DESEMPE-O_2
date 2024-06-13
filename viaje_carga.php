@@ -9,11 +9,12 @@ $alert_message = "";
 $listado_camiones = Listar_camiones($connection);
 $list_chof = Listar_choferes($connection);
 $listado_destino = Listar_destinos($connection);
+$list_opera = Listado_operadores($connection);
 
 //carga de datos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Verifico
-  if (!empty($_POST['chofer']) && !empty($_POST['transporte']) && !empty($_POST['destino']) 
+  if (!empty($_POST['chofer']) && !empty($_POST['transporte']) && !empty($_POST['destino']) && !empty($_POST['operador']) 
      && !empty($_POST['fecha']) && !empty($_POST['costo']) && !empty($_POST['proc'])) {
 
       $chofer = $_POST['chofer'];
@@ -21,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $fecha = $_POST['fecha'];
       $fecha_creacion = (new DateTime())->format('Y-m-d H:i:s');  // fech actual
       $dest = $_POST['destino'];
-      $encargado = $user_id; //REVISAR, NO CARGA EL USUARIO SESSION INICIADO
+      $operador = $_POST['operador']; //REVISAR, NO CARGA EL USUARIO SESSION INICIADO
       $costo = $_POST['costo'];
       $porcentaje = $_POST['proc'];
 
-      $SQL = "INSERT INTO VIAJES (chofer, camion, fecha_viaje, fecha_creacion, destino, encargado, costos, porcentaje_chofer) 
-              VALUES (:chofer, :camion, :fecha_viaje, :fecha_creacion, :destino, :encargado, :costo, :porcentaje_chofer)";
+      $SQL = "INSERT INTO VIAJES (chofer, camion, fecha_viaje, fecha_creacion, destino, operador, costos, porcentaje_chofer) 
+              VALUES (:chofer, :camion, :fecha_viaje, :fecha_creacion, :destino, :operador, :costo, :porcentaje_chofer)";
     
       $stmt = $connection->prepare($SQL);
       $stmt->bindParam(':chofer', $chofer);
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->bindParam(':fecha_viaje', $fecha);
       $stmt->bindParam(':fecha_creacion', $fecha_creacion);
       $stmt->bindParam(':destino', $dest);
-      $stmt->bindParam(':encargado', $encargado);
+      $stmt->bindParam(':operador', $operador);
       $stmt->bindParam(':costo', $costo);
       $stmt->bindParam(':porcentaje_chofer', $porcentaje);
 
@@ -114,6 +115,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?= htmlspecialchars($dest['LOCALIDAD']); ?>
                   </option>
                 <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="operador" class="form-label">Operador</label>
+              <select class="form-select" aria-label="Selector" id="operador" name="operador">
+                <option value="">Seleccione el Operador</option>
+                <?php foreach($list_opera as $operad): ?>
+                  <option value="<?= htmlspecialchars($operad['ID_USUARIO']); ?>" <?= isset($_POST['operador']) && $_POST['operador'] == $operad['ID_USUARIO'] ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($operad['NOMBRE'] . ' ' . $operad['APELLIDO'] . ' (' . $operad['DNI'] . ')'); ?>
+                  </option>
+                <?php endforeach;?>
               </select>
             </div>
             <div class="col-12">
