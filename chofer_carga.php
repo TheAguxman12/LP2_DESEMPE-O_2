@@ -80,19 +80,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form method="POST" class="row g-3">
                         <div class="col-12">
                             <label for="apellido" class="form-label">Apellido (*)</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" value="<?= isset($_POST['apellido']) ? htmlspecialchars($_POST['apellido']) : ''; ?>" required>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value="" required>
                         </div>
                         <div class="col-12">
                             <label for="nombre" class="form-label">Nombre (*)</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?= isset($_POST['nombre']) ? htmlspecialchars($_POST['nombre']) : ''; ?>" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="" required>
                         </div>
                         <div class="col-12">
                             <label for="dni" class="form-label">DNI (*)</label>
-                            <input type="text" class="form-control" id="dni" name="dni" value="<?= isset($_POST['dni']) ? htmlspecialchars($_POST['dni']) : ''; ?>" required>
+                            <input type="text" class="form-control" id="dni" name="dni" value="" required>
                         </div>
                         <div class="col-12">
                             <label for="user" class="form-label">Usuario (*)</label>
-                            <input type="text" class="form-control" id="user" name="user" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : ''; ?>" required>
+                            <input type="text" class="form-control" id="user" name="user" value="" required>
                         </div>
                         <div class="col-12">
                             <label for="pass" class="form-label">Clave (*)</label>
@@ -100,14 +100,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="col-12">
                             <label for="anio" class="form-label">Fecha (*)</label>
-                            <input type="date" class="form-control" id="anio" name="anio" value="<?= isset($_POST['anio']) ? htmlspecialchars($_POST['anio']) : ''; ?>" required>
+                            <input type="date" class="form-control" id="anio" name="anio" value="" required>
                         </div>
                         <div class="col-12">
                             <label for="selector" class="form-label">Nivel (*)</label>
                             <select class="form-select" aria-label="Selector" id="selector" name="nivel" required>
                                 <option value="">Seleccione Nivel de Accesibilidad</option>
                                 <?php foreach ($lvls as $nivel) : ?>
-                                    <option value="<?= htmlspecialchars($nivel['id_nivel']); ?>" <?= isset($_POST['nivel']) && $_POST['nivel'] == $nivel['id_nivel'] ? 'selected' : ''; ?>>
+                                    <option value="<?= htmlspecialchars($nivel['id_nivel']); ?>">
                                         <?= htmlspecialchars($nivel['tipo_nivel']); ?>
                                     </option>
                                 <?php endforeach; ?>

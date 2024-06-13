@@ -1,6 +1,10 @@
 <?php
 include("./functions/header.php");
-require_once ('./test_listado.php');
+require ('./functions/test_listado.php');
+
+
+
+$viajes = listado($connection,$_SESSION['user_id']);
 ?>
     <div class="pagetitle">
       <h1>Lista de viajes registrados</h1>
@@ -31,23 +35,37 @@ require_once ('./test_listado.php');
             <th scope="col">Destino</th>
             <th scope="col">Camión</th>
             <th scope="col">Chofer</th>
-            <th scope="col">Costo Viaje</th>
-            <th scope="col">Monto Chofer</th>
+            <?php if($_SESSION['nivel'] >= 2): ?>
+            <th>Costo Viaje</th>
+            <?php endif ?>
+            <?php if ($_SESSION['nivel'] <= 1 || $_SESSION['nivel'] >=3 ): ?>
+            <th>Monto Chofer</th>
+            <?php endif ?>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($viajes as $index => $viaje): ?>
-            <tr class="table-success" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Viaje realizado">
-                <th scope="row"><?php echo $index + 1; ?></th>
-                <td><?php echo date('d/m/Y', strtotime($viaje['fecha_viaje'])); ?></td>
-                <td><?php echo $viaje['destino']; ?></td>
-                <td><?php echo $viaje['camion']; ?></td>
-                <td><?php echo $viaje['chofer']; ?></td>
+    <?php foreach ($viajes as $index => $viaje): ?>
+        <tr class="table-success" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Viaje realizado">
+            <th scope="row"><?php echo $index + 1; ?></th>
+            <td><?php echo date('d/m/Y', strtotime($viaje['fecha_viaje'])); ?></td>
+            <td><?php echo $viaje['destino']; ?></td>
+            <td><?php echo $viaje['camion']; ?></td>
+            <td><?php echo $viaje['chofer']; ?></td>
+            <?php if ($_SESSION['nivel'] >= 2): ?>
                 <td><?php echo '$ ' . number_format($viaje['costo_viaje'], 2); ?></td>
-                <td><?php echo $viaje['monto_chofer']; ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
+            <?php endif; ?>
+            <?php if ($_SESSION['nivel'] <= 1 || $_SESSION['nivel'] >=3 ): ?>
+                <td>
+                    <?php echo $viaje['monto_chofer']; ?>
+                    <?php if ($_SESSION['nivel'] >= 3): ?>
+                        <?php echo '('.$viaje['porcentaje_chofer'].'%)'; ?>
+                    <?php endif; ?>
+                </td>
+            <?php endif; ?>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
 </table>
               <!-- End Default Table Example -->
 

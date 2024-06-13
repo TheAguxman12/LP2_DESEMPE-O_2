@@ -8,7 +8,7 @@ function Listar_camiones($connection)
 
     $SQL = "SELECT T.id_transporte, T.modelo, T.año_transporte, T.patente, T.disposicion, M.tipo_marca
             FROM TRANSPORTE T
-            JOIN MARCA_TRANSPORTE M ON T.marca = M.id_marca";
+            JOIN MARCA_TRANSPORTE M WHERE T.marca = M.id_marca";
     $stmt = $connection->prepare($SQL);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +32,7 @@ function Listar_choferes($connection)
     FROM USUARIOS u
     JOIN NIVEL_USUARIO n
     ON u.nivel = n.id_nivel
-    WHERE n.tipo_nivel = 'choferes'";
+    WHERE n.tipo_nivel = 'Choferes'";
 
     $sm = $connection->prepare($sql);
     $sm->execute();
@@ -78,7 +78,7 @@ function Listado_operadores($connection)
     FROM USUARIOS u
     JOIN NIVEL_USUARIO n
     ON u.nivel = n.id_nivel
-    WHERE n.tipo_nivel = 'operadores'";
+    WHERE n.tipo_nivel = 'Operadores'";
     $sm = $connection->prepare($sql);
     $sm->execute();
     $operador = $sm->fetchAll(PDO::FETCH_ASSOC);
@@ -96,5 +96,34 @@ function Listado_operadores($connection)
    
     return $list_operador;
 }
+
+
+
+function Listado($connection) 
+{
+    
+    $list_camiones = array();
+
+
+    $SQL = "SELECT T.id_transporte, T.modelo, T.año_transporte, T.patente, T.disposicion, M.tipo_marca
+            FROM TRANSPORTE T
+            JOIN MARCA_TRANSPORTE M WHERE T.marca = M.id_marca";
+    $stmt = $connection->prepare($SQL);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    foreach ($result as $i => $data) {
+        $list_camiones[$i]['ID_TRANSPORTE'] = $data['id_transporte'];
+        $list_camiones[$i]['MODELO'] = $data['modelo'];
+        $list_camiones[$i]['AÑO_TRANSPORTE'] = $data['año_transporte'];
+        $list_camiones[$i]['PATENTE'] = $data['patente'];
+        $list_camiones[$i]['DISPOSICION'] = $data['disposicion'] ? 'Disponible' : 'No Disponible';
+        $list_camiones[$i]['TIPO_MARCA'] = $data['tipo_marca'];
+    }
+
+    return $list_camiones;
+}
+
 
 ?>

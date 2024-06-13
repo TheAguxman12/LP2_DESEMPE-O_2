@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    if ($resultado && $ypass === $resultado['clave']) {
+    if ($resultado && password_verify($ypass, $resultado['clave'])) {
         $_SESSION['user_id'] = $resultado['id_usuario'];
         $_SESSION['yuser'] = $resultado['usuario'];
         $_SESSION['nivel'] = $resultado['nivel'];

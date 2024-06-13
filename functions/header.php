@@ -85,12 +85,12 @@ if($_SESSION['nivel'] == 3){
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/bellota.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user.$user_id ?> </span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user.' '.$user_id ?> </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6><?=$nombre.$apellido ?> </h6>
+              <h6><?=$nombre.' '.$apellido ?> </h6>
               <span><?=$nivel ?> </span>
             </li>
             <li>
@@ -190,13 +190,11 @@ if($_SESSION['nivel'] == 3){
           </li>
           <?php endif?>
 
-          <?php if($_SESSION['nivel'] >= 3): ?>
           <li>
             <a href="viajes_listado.php" class="active">
               <i class="bi bi-layout-text-window-reverse"></i><span>Listado de viajes</span>
             </a>
           </li>
-          <?php endif?>
         </ul>
       </li>
 
