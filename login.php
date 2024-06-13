@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['nivel'] = $resultado['nivel'];
         $_SESSION['nombre'] = $resultado['nombre'];
         $_SESSION['apellido'] = $resultado['apellido'];
+        $_SESSION['foto'] = $resultado['imagen'];
         $_SESSION['login'] = true;
         header("Location: index.php");
         exit();

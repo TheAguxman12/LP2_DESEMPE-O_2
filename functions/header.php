@@ -3,6 +3,7 @@
 session_start();
 include('./bd.php');
 $url_base = "http://localhost/LP2_PARCIAL_2/";
+$url_base2 = "http://localhost/LP2_PARCIAL_2/assets/img/";
 if (!isset($_SESSION['yuser'])) {
     header("Location: " . $url_base . "cerrar.php");
 }
@@ -11,6 +12,8 @@ $user_id = $_SESSION['user_id'];
 $user = $_SESSION['yuser'];
 $nombre = $_SESSION['nombre'];
 $apellido = $_SESSION['apellido'];
+$foto = $_SESSION['foto'];
+
 
 if($_SESSION['nivel'] == 1){
   $nivel = 'Chofer';
@@ -84,8 +87,8 @@ if($_SESSION['nivel'] == 3){
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/bellota.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user.' '.$user_id ?> </span>
+            <img src="<?=$foto?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$user.' ' ?> </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

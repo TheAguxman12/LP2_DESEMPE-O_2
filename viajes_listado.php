@@ -5,6 +5,7 @@ require ('./functions/test_listado.php');
 
 
 $viajes = listado($connection,$_SESSION['user_id']);
+
 ?>
     <div class="pagetitle">
       <h1>Lista de viajes registrados</h1>
@@ -45,7 +46,8 @@ $viajes = listado($connection,$_SESSION['user_id']);
     </thead>
     <tbody>
     <?php foreach ($viajes as $index => $viaje): ?>
-        <tr class="table-success" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Viaje realizado">
+        <?php $estado = calculo_viaje($viaje['fecha_viaje']) ?>
+        <tr class="table-<?=$estado['estado']?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="<?=$estado['mensaje']?>">
             <th scope="row"><?php echo $index + 1; ?></th>
             <td><?php echo date('d/m/Y', strtotime($viaje['fecha_viaje'])); ?></td>
             <td><?php echo $viaje['destino']; ?></td>

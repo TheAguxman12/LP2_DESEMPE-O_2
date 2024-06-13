@@ -17,8 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Verifico
   if (
     !empty($_POST['chofer']) && !empty($_POST['transporte']) && !empty($_POST['destino'])
-    && !empty($_POST['fecha']) && !empty($_POST['costo']) && isset($_POST['proc'])
-  ) {
+    && !empty($_POST['fecha']) && !empty($_POST['costo']) && isset($_POST['proc'] )
+
+  )   
+  {
+
+
 
     
 
@@ -30,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $operador = $_SESSION['user_id']; // Asumiendo que el operador es el usuario logueado
     $costo = $_POST['costo'];
     $porcentaje = $_POST['proc'];
+ 
 
     $SQL = "INSERT INTO VIAJES (chofer, camion, fecha_viaje, fecha_creacion, destino, operador, costos, porcentaje_chofer) 
               VALUES (:chofer, :camion, :fecha_viaje, :fecha_creacion, :destino, :operador, :costo, :porcentaje_chofer)";
@@ -101,9 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <select class="form-select" aria-label="Selector" id="transporte" name="transporte">
                 <option value="">Seleccione el Transporte</option>
                 <?php foreach ($listado_camiones as $camion) : ?>
+                  <?php if($camion['DISPOSICION'] === 'Disponible') { ?>
                   <option value="<?= htmlspecialchars($camion['ID_TRANSPORTE']); ?>" >
                     <?= htmlspecialchars($camion['TIPO_MARCA'] . ' - ' . $camion['MODELO'] . ' - ' . $camion['PATENTE']); ?>
                   </option>
+                  <?php } ?>
                 <?php endforeach; ?>
               </select>
             </div>

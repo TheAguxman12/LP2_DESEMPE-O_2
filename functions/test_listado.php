@@ -12,7 +12,7 @@ function listado($connection, $user_id)
                 v.id_viaje AS id_viaje,
                 v.fecha_viaje AS fecha_viaje,
                 d.localidad AS destino,
-                CONCAT(t.marca, ' - ', t.modelo, ' - ', t.patente) AS camion,
+                CONCAT(m.tipo_marca, ' - ', t.modelo, ' - ', t.patente) AS camion,
                 CONCAT(u.apellido, ', ', u.nombre) AS chofer,
                 v.costos AS costo_viaje,
                 CONCAT('$ ', FORMAT(v.costos * v.porcentaje_chofer / 100, 2)) AS monto_chofer,
@@ -21,7 +21,9 @@ function listado($connection, $user_id)
                 VIAJES v
                 INNER JOIN DESTINO d ON v.destino = d.id_destino
                 INNER JOIN TRANSPORTE t ON v.camion = t.id_transporte
+                INNER JOIN MARCA_TRANSPORTE m ON t.marca = m.id_marca
                 INNER JOIN USUARIOS u ON v.chofer = u.id_usuario";
+
 
     if ($filtro_admin) {
         $sql .= " WHERE v.chofer = :user_id";
@@ -54,8 +56,45 @@ function listado($connection, $user_id)
         $list_viajes[$i]['porcentaje_chofer'] = $data['porcentaje_chofer'];
     }
 
+
     return $list_viajes;
 }
+function calculo_viaje($data_viaje) {
+    // Inicializar mensaje y estado
+    $mensaje = "";
+    $estado = "";
+
+    // Calculo de fechas
+    date_default_timezone_set("America/Argentina/Cordoba");
+    $Fecha_actual = date("Y-m-d");
+    $Maniana = date("Y-m-d", strtotime($Fecha_actual . "+ 1 day")); 
+    $Fecha_viaje = date("Y-m-d", strtotime($data_viaje)); // Asegúrate de que la fecha del viaje esté en el mismo formato
+
+    // Verificar si la fecha del viaje es mañana
+    if ($Fecha_viaje == $Maniana) {
+        $mensaje = "El viaje es para mañana";
+        $estado = "warning";
+    }
+    else if ($Fecha_viaje > $Maniana) {
+        $mensaje = "El viaje es proximo";
+        $estado = "warning";
+    }
+    // Verificar si la fecha del viaje es hoy
+    else if ($Fecha_viaje == $Fecha_actual) {
+        $mensaje = "El viaje es hoy!";
+        $estado = "danger";
+    }
+    // Verificar si la fecha del viaje es menor a hoy
+    else if ($Fecha_viaje < $Fecha_actual) {
+        $mensaje = "El viaje ya se realizo.";
+        $estado = "success";
+    }
+
+    // Devolver un array con los valores
+    return array('mensaje' => $mensaje, 'estado' => $estado);
+}
+
+
 
 
 

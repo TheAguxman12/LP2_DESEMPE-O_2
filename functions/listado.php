@@ -19,7 +19,7 @@ function Listar_camiones($connection)
         $list_camiones[$i]['MODELO'] = $data['modelo'];
         $list_camiones[$i]['AÑO_TRANSPORTE'] = $data['año_transporte'];
         $list_camiones[$i]['PATENTE'] = $data['patente'];
-        $list_camiones[$i]['DISPOSICION'] = $data['disposicion'] ? 'Disponible' : 'No Disponible';
+        $list_camiones[$i]['DISPOSICION'] = $data['disposicion'];
         $list_camiones[$i]['TIPO_MARCA'] = $data['tipo_marca'];
     }
 
