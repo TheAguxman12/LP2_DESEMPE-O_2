@@ -10,6 +10,7 @@ if (!isset($_SESSION['yuser'])) {
 
 $user_id = $_SESSION['user_id'];
 $user = $_SESSION['yuser'];
+$mail= $_SESSION['mail'];
 $nombre = $_SESSION['nombre'];
 $apellido = $_SESSION['apellido'];
 $foto = $_SESSION['foto'];

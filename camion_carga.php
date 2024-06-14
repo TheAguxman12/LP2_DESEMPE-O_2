@@ -90,11 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="col-12">
                             <label for="año" class="form-label">Año (*)</label>
-                            <input type="number" class="form-control" id="anio" name="anio" required>
+                            <input type="number" class="form-control" id="anio" name="anio" min="1900" max="2024"required>
                         </div>
                         <div class="col-12">
                             <label for="patente" class="form-label">Patente (*)</label>
-                            <input type="text" class="form-control" id="patente" name="patente" required>
+                            <input type="text" class="form-control" id="patente" name="patente" minlength="6" maxlength="7" required>
                         </div>
 
                         <div class="col-12">

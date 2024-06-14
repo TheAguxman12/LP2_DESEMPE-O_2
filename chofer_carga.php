@@ -33,10 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     
 
-        $sql_insert = "INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen) 
-                       VALUES (:usuario, :nombre, :apellido, :dni, :clave, 1, :nivel, :anio, :imagen)";
+        $sql_insert = "INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen, mail) 
+                       VALUES (:usuario, :nombre, :apellido, :dni, :clave, 1, :nivel, :anio, :imagen, :mail)";
         $stmt = $connection->prepare($sql_insert);
         $stmt->bindParam(':usuario', $usuario);
+        $stmt->bindParam(':mail', $mail);
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':dni', $dni);
@@ -88,23 +89,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form method="POST" class="row g-3">
                         <div class="col-12">
                             <label for="apellido" class="form-label">Apellido (*)</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" value="" required>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value="" minlength="3" required>
                         </div>
                         <div class="col-12">
                             <label for="nombre" class="form-label">Nombre (*)</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="" minlength="3" required>
                         </div>
                         <div class="col-12">
                             <label for="dni" class="form-label">DNI (*)</label>
-                            <input type="text" class="form-control" id="dni" name="dni" value="" required>
+                            <input type="text" class="form-control" id="dni" name="dni" value="" minlength="7" maxlength="10" required>
                         </div>
                         <div class="col-12">
                             <label for="user" class="form-label">Usuario (*)</label>
-                            <input type="text" class="form-control" id="user" name="user" value="" required>
+                            <input type="text" class="form-control" id="user" name="user" value="" minlength="5" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="mail" class="form-label">Correo electronico (*)</label>
+                            <input type="text" class="form-control" id="mail" name="mail" value="" minlength="5" required>
                         </div>
                         <div class="col-12">
                             <label for="pass" class="form-label">Clave (*)</label>
-                            <input type="password" class="form-control" id="pass" name="pass" required>
+                            <input type="password" class="form-control" id="pass" name="pass" minlength="5" required>
                         </div>
                         <div class="col-12">
                             <label for="anio" class="form-label">Fecha (*)</label>
