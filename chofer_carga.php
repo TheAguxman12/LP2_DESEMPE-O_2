@@ -13,8 +13,10 @@ $lvls = $sm->fetchAll(PDO::FETCH_ASSOC);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verifico 
-    if (!empty($_POST['apellido']) && !empty($_POST['nombre']) && !empty($_POST['user']) 
-       && !empty($_POST['dni']) && !empty($_POST['nivel']) && !empty($_POST['pass']) && !empty($_POST['anio'])) {
+    if (
+        !empty($_POST['apellido']) && !empty($_POST['nombre']) && !empty($_POST['user'])
+        && !empty($_POST['dni']) && !empty($_POST['nivel']) && !empty($_POST['pass']) && !empty($_POST['anio'])
+    ) {
 
         $apellido = $_POST['apellido'];
         $nombre = $_POST['nombre'];
@@ -24,20 +26,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nivel = $_POST['nivel'];
         $anio = $_POST['anio'];
         //SELECCIONO LA IMAGEN CORRESPONDIENTE
-        if($_POST['nivel'] == 1){
+        if ($_POST['nivel'] == 1) {
             $imagen = "http://localhost/LP2_PARCIAL_2/assets/img/bellota.jpg";
-        }elseif ($_POST['nivel'] == 2){
+        } elseif ($_POST['nivel'] == 2) {
             $imagen = "http://localhost/LP2_PARCIAL_2/assets/img/burbuja.jpg";
-        }elseif ($_POST['nivel'] == 3){
+        } elseif ($_POST['nivel'] == 3) {
             $imagen = "http://localhost/LP2_PARCIAL_2/assets/img/bombon.jpg";
         }
-    
 
-        $sql_insert = "INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen, mail) 
-                       VALUES (:usuario, :nombre, :apellido, :dni, :clave, 1, :nivel, :anio, :imagen, :mail)";
+
+        $sql_insert = "INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen) 
+                       VALUES (:usuario, :nombre, :apellido, :dni, :clave, 1, :nivel, :anio, :imagen)";
         $stmt = $connection->prepare($sql_insert);
         $stmt->bindParam(':usuario', $usuario);
-        $stmt->bindParam(':mail', $mail);
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':dni', $dni);
@@ -104,17 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" class="form-control" id="user" name="user" value="" minlength="5" required>
                         </div>
                         <div class="col-12">
-                            <label for="mail" class="form-label">Correo electronico (*)</label>
-                            <input type="text" class="form-control" id="mail" name="mail" value="" minlength="5" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="pass" class="form-label">Clave (*)</label>
-                            <input type="password" class="form-control" id="pass" name="pass" minlength="5" required>
+                            <label for="pass" class="form-label">Clave</label>
+                            <input type="password" name="pass" class="form-control" id="pass" minlength="5" required>
+                            <div class="invalid-feedback">Ingresa tu clave</div>
                         </div>
                         <div class="col-12">
                             <label for="anio" class="form-label">Fecha (*)</label>
                             <input type="date" class="form-control" id="anio" name="anio" value="" required>
                         </div>
+                        
                         <div class="col-12">
                             <label for="selector" class="form-label">Nivel (*)</label>
                             <select class="form-select" aria-label="Selector" id="selector" name="nivel" required>
@@ -145,5 +144,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="assets/js/main.js"></script>
 
 </body>
-</html>
 
+</html>

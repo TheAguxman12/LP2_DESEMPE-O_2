@@ -51,13 +51,6 @@ CREATE TABLE VIAJES(
 
 -- POBLADO DE TABLAS 
 
--- CARGA DEL ADMINISTRADOR: 
-
-INSERT INTO USUARIOS (usuario, nombre, apellido, dni, clave, actividad, nivel, fecha, imagen)
-VALUES ('admin', 'Juan', 'Pérez', 12345678, 'admin', '1', 3, '2024-06-10', 'http://localhost/LP2_PARCIAL_2/assets/img/bombon.jpg');
-
-
-
 -- CARGADO NIVEL DE USUARIO:
 
 INSERT INTO NIVEL_USUARIO(tipo_nivel) VALUES ("Choferes"),("Operadores"), ("Admin");

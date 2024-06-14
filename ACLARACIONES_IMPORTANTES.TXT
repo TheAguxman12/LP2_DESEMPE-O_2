@@ -9,3 +9,4 @@ Este parcial ha sido realizado por Agustin Verzino Fernandez y Julian LLugany
 3. Tanto las localidades, niveles y marca ya estan cargadas, en el apartado (basedatos.sql) le dejamos todos los scrips con las que fue cargada.
 4. En cuanto al encriptado de las contraseñas, utilisamos nuestro metodo de (passwordhash), que usa BCRYPT para encriptar datos, el cual es mas seguro que MD5 ya que es el metodo que usamos en nuestra tesis.
 5. En cuanto al login no comprendimos bien lo que habia que hacer con el apartado actividad, de todas maneras el login esta hecho para validad actividad y si se le cambia la actividad al usuario no podra ingresar (esta misma debe ser cambiada directamente en la base de datos).
+

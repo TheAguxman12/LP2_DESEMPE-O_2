@@ -1,41 +1,15 @@
 <?php
-require('bd.php');
-session_start();
+require_once ('./functions/inserts_login.php');
 
-$alert_message = "";
+$alert_message = '';
+if(!empty ($_POST['yourUsername']) && !empty($_POST['yourPassword'])){
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $yuser = isset($_POST['yourUsername']) ? $_POST['yourUsername'] : '';
-    $ypass = isset($_POST['yourPassword']) ? $_POST['yourPassword'] : '';
-
-    $simple = $connection->prepare("SELECT * FROM USUARIOS WHERE usuario = :yourUsername");
-    $simple->bindParam(":yourUsername", $yuser);
-    $simple->execute();
-
-    $resultado = $simple->fetch(PDO::FETCH_ASSOC);
-
-      //var_dump($resultado); 
-      //echo "Usuario: $yuser, Clave: $ypass";
-
-
-  if($resultado['actividad'] == 1){
-    if ($resultado && password_verify($ypass, $resultado['clave'])) {
-        $_SESSION['user_id'] = $resultado['id_usuario'];
-        $_SESSION['yuser'] = $resultado['usuario'];
-        $_SESSION['nivel'] = $resultado['nivel'];
-        $_SESSION['nombre'] = $resultado['nombre'];
-        $_SESSION['apellido'] = $resultado['apellido'];
-        $_SESSION['foto'] = $resultado['imagen'];
-        $_SESSION['login'] = true;
-        header("Location: index.php");
-        exit();
-    } else {
-        $alert_message = '<div class="alert alert-danger" role="alert">El usuario y/o contraseña son incorrectos</div>';
-    }
-  }else{
-    $alert_message = '<div class="alert alert-danger" role="alert">El usuario no se encuentra activo</div>';
-  }
+$u = $_POST['yourUsername'];
+$p = $_POST['yourPassword'];
+$intert = logear($connection, $u, $p);
+$alert_message = $intert;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -77,11 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="text-center small">Ingresa tus datos de usuario y clave</p>
                   </div>
 
-                  <?php if ($alert_message): ?>
-                    <div class="alert alert-danger" role="alert">
                       <?php echo $alert_message; ?>
-                    </div>
-                  <?php endif; ?>
+               
 
                   <form class="row g-3 needs-validation" method="POST" novalidate>
                     <div class="col-12">
